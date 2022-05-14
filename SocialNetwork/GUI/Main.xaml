@@ -60,7 +60,7 @@
                 materialDesign:NavigationRailAssist.ShowSelectionBackground="True"
                 Style="{StaticResource MaterialDesignNavigationRailTabControl}"
                 TabStripPlacement="Bottom">
-                <TabItem Margin="4">
+                <TabItem Margin="4" IsSelected="True">
                     <TabItem.Header>
                         <StackPanel Width="auto" Height="auto">
                             <materialDesign:PackIcon
@@ -72,7 +72,7 @@
                     </TabItem.Header>
                     <local:Home Margin="0,0,0,5" Self="{Binding Self, ElementName=myWindow}" />
                 </TabItem>
-                <TabItem Margin="4">
+                <TabItem Margin="4" IsSelected="False">
                     <TabItem.Header>
                         <StackPanel Width="auto" Height="auto">
                             <materialDesign:PackIcon
@@ -91,7 +91,7 @@
                         </Run>
                     </TextBlock>
                 </TabItem>
-                <TabItem Margin="4">
+                <TabItem Margin="4" IsSelected="False">
                     <TabItem.Header>
                         <StackPanel Width="auto" Height="auto">
                             <materialDesign:PackIcon

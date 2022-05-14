@@ -82,7 +82,7 @@ namespace SocialNetwork.DAO
 
         public List<Post> GetAllFollowPosts(User user)
         {
-            string sql = $"select * from post where user_id in (select followee_id from follows where follower_id = {user.User_id}) order by created_at DESC limit 20;";
+            string sql = $"select * from post where user_id in (select followee_id from follows where follower_id = {user.User_id}) and user_id != {user.User_id} order by created_at DESC limit 20;";
             DataTable dataTable = connection.executeRetrieveQuery(sql);
 
             List<Post> posts = ConvertDataTableToList<Post>(dataTable);
@@ -91,7 +91,7 @@ namespace SocialNetwork.DAO
 
         public List<Post> GetAllNotFollowPosts(User user)
         {
-            string sql = $"select * from post where user_id not in (select followee_id from follows where follower_id = {user.User_id}) order by created_at DESC limit 20;";
+            string sql = $"select * from post where user_id not in (select followee_id from follows where follower_id = {user.User_id}) and user_id != {user.User_id} order by created_at DESC limit 20;";
             DataTable dataTable = connection.executeRetrieveQuery(sql);
 
             List<Post> posts = ConvertDataTableToList<Post>(dataTable);
