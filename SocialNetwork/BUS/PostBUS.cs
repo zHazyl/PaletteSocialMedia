@@ -1,6 +1,7 @@
 ﻿using SocialNetwork.BUS.Commands;
 using SocialNetwork.DAO;
 using SocialNetwork.DTO;
+using SocialNetwork.GUI;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -53,6 +54,15 @@ namespace SocialNetwork.BUS
             DisplayLikeCommand = new LikeCommand(DisplayLike);
         }
 
+        public PostBUS(User self, Main main)
+        {
+            Comment = "";
+            Self = self;
+            LoadViewPosts();
+            DisplayLikeCommand = new LikeCommand(DisplayLike);
+            Main = main;
+        }
+
         public PostBUS(User self, string explore)
         {
             Comment = "";
@@ -60,7 +70,40 @@ namespace SocialNetwork.BUS
             LoadViewExplorePosts();
             DisplayLikeCommand = new LikeCommand(DisplayLike);
         }
+        public PostBUS(User self, Main main, string explore)
+        {
+            Comment = "";
+            Main = main;
+            Self = self;
+            LoadViewExplorePosts();
+            DisplayLikeCommand = new LikeCommand(DisplayLike);
+        }
 
+        private Main _main;
+        public Main Main
+        {
+            get { return _main; }
+            set
+            {
+                _main = value;
+                OnPropertyChanged("Main");
+            }
+        }
+
+        private BaseCommand _searchTabCommand;
+        public BaseCommand SearchTabCommand
+        {
+            get
+            {
+                return _searchTabCommand ?? (_searchTabCommand = new BaseCommand(param => SearchTab(param)));
+            }
+        }
+
+        public void SearchTab(object o)
+        {
+            Main.SearchTab.IsSelected = true;
+            Main.HomeTab.IsSelected = false;
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         void OnPropertyChanged(string name) =>
@@ -84,6 +127,7 @@ namespace SocialNetwork.BUS
             var userDAO = new UserDAO();
             var photoDAO = new PhotoDAO();
             var post_likeDAO = new Post_likeDAO();
+            var comment_likeDAO = new Comment_likeDAO();
             var commentDAO = new CommentDAO();
             Viewposts = new ObservableCollection<ViewPost>();
             ObservableCollection<CommentView> comments;
@@ -91,9 +135,14 @@ namespace SocialNetwork.BUS
             {
                 comments = new ObservableCollection<CommentView>();
                 var cmts = commentDAO.GetCommentsWithPost(post.Post_id); //List<Comment>
+
+                List<User> commentlike;
+                bool islikedcmt = true;
                 foreach (var cmt in cmts)
                 {
-                    comments.Add(new CommentView(userDAO.GetUserWithId(cmt.User_id), cmt));
+                    commentlike = comment_likeDAO.GetComment_likesWithComment(cmt.Comment_id);
+                    islikedcmt = commentlike.Any(usr => usr.User_id == Self.User_id);
+                    comments.Add(new CommentView(userDAO.GetUserWithId(cmt.User_id), cmt, islikedcmt, comment_likeDAO.GetLikes(cmt.Comment_id)));
                 }
                 var postlike = post_likeDAO.GetPost_likesWithPost(post.Post_id);
                 bool isliked = postlike.Any(usr => usr.User_id == Self.User_id);
@@ -197,6 +246,36 @@ namespace SocialNetwork.BUS
             {
                 vb.Likes--;
                 post_likeDAO.DeleteLike(Self.User_id,vb.Post.Post_id);
+            }
+        }
+
+
+        private LikeCommand _displayLikeCommentCommand;
+        public LikeCommand DisplayLikeCommentCommand
+        {
+            get
+            {
+                return _displayLikeCommentCommand ?? (_displayLikeCommentCommand = new LikeCommand(param => DisplayLikeComment(param)));
+            }
+            private set
+            {
+
+            }
+        }
+
+        public void DisplayLikeComment(object commentView)
+        {
+            var cv = (CommentView)commentView;
+            var comment_likeDAO = new Comment_likeDAO();
+            if (cv.IsLiked)
+            {
+                cv.LikedCount++;
+                comment_likeDAO.AddLike(Self.User_id, cv.Comment.Comment_id);
+            }
+            else
+            {
+                cv.LikedCount--;
+                comment_likeDAO.DeleteLike(Self.User_id, cv.Comment.Comment_id);
             }
         }
     }

@@ -51,7 +51,7 @@
                                             <ImageBrush ImageSource="{Binding User.Profile_photo_url}" RenderOptions.BitmapScalingMode="HighQuality" />
                                         </Border.Background>
                                         <Border.InputBindings>
-                                            <MouseBinding Command="" MouseAction="LeftClick" />
+                                            <MouseBinding Command="{Binding DataContext.SearchTabCommand, ElementName=This}" MouseAction="LeftClick" />
                                         </Border.InputBindings>
                                         <Border.Cursor>Hand</Border.Cursor>
                                     </Border>
@@ -64,7 +64,7 @@
                                         <Run FontWeight="Bold" Text="{Binding User.Username}">
                                             <Run.Cursor>Hand</Run.Cursor>
                                             <Run.InputBindings>
-                                                <MouseBinding Command="" MouseAction="LeftClick" />
+                                                <MouseBinding Command="{Binding DataContext.SearchTabCommand, ElementName=This}" MouseAction="LeftClick" />
                                             </Run.InputBindings>
                                         </Run>
                                     </TextBlock>
@@ -106,7 +106,7 @@
                                                     <ImageBrush ImageSource="{Binding User.Profile_photo_url}" RenderOptions.BitmapScalingMode="HighQuality" />
                                                 </Border.Background>
                                                 <Border.InputBindings>
-                                                    <MouseBinding Command="" MouseAction="LeftClick" />
+                                                    <MouseBinding Command="{Binding DataContext.SearchTabCommand, ElementName=This}" MouseAction="LeftClick"/>
                                                 </Border.InputBindings>
                                                 <Border.Cursor>Hand</Border.Cursor>
                                             </Border>
