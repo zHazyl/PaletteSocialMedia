@@ -1,0 +1,119 @@
+﻿<Window
+    x:Class="SocialNetwork.GUI.SignUp"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:local="clr-namespace:SocialNetwork.GUI"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Sign up"
+    Width="400"
+    Height="700"
+    mc:Ignorable="d">
+    <Grid Background="Gainsboro">
+        <WrapPanel
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Orientation="Vertical">
+            <Border
+                Width="356"
+                Height="550"
+                Background="White"
+                BorderBrush="#FFB5B5B5"
+                BorderThickness="1">
+                <WrapPanel
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <TextBlock
+                        Width="300"
+                        Margin="10"
+                        FontSize="17"
+                        Foreground="Gray"
+                        Text="Sign up to see photos from your friends."
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                    <TextBox
+                        x:Name="txtBoxName"
+                        Margin="10"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="Full name" />
+                    <TextBox
+                        x:Name="txtBoxUsername"
+                        Margin="10"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="Username" />
+                    <TextBox
+                        x:Name="txtBoxPhone"
+                        Margin="10"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="Phone" />
+                    <TextBox
+                        x:Name="txtBoxEmail"
+                        Margin="10"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="Email" />
+                    <TextBox
+                        x:Name="txtBoxGender"
+                        Margin="10"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="Gender" />
+                    <PasswordBox
+                        x:Name="passwordBox"
+                        Margin="10, 10, 10, 20"
+                        Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="Password"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        materialDesign:HintAssist.HelperText="At least 8 characters" />
+                    <PasswordBox
+                        x:Name="repasswordBox"
+                        Margin="10, 10, 10, 20"
+                        Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                        VerticalAlignment="Center"
+                        materialDesign:HintAssist.Hint="Confirm password"
+                        materialDesign:TextFieldAssist.HasClearButton="True"
+                        materialDesign:HintAssist.HelperText="At least 8 characters" />
+                    <Button
+                        x:Name="btnSignUp"
+                        Margin="10"
+                        Click="btnSignUp_Click"
+                        Content="Sign Up"
+                        FontSize="15"
+                        Foreground="White" />
+                </WrapPanel>
+            </Border>
+            <Border
+                Width="356"
+                Height="50"
+                Margin="0,15,0,0"
+                Background="White"
+                BorderBrush="#FFB5B5B5"
+                BorderThickness="1">
+                <WrapPanel
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        FontFamily="Montserrat"
+                        FontSize="15"
+                        Text="Already have an account?"
+                        TextWrapping="Wrap" />
+                    <TextBlock
+                        Cursor="Hand"
+                        FontFamily="Montserrat"
+                        FontSize="15"
+                        Foreground="Blue"
+                        MouseDown="btnLogin_MouseDown"
+                        Text="Login?"
+                        TextWrapping="Wrap" />
+                </WrapPanel>
+            </Border>
+        </WrapPanel>
+    </Grid>
+</Window>
