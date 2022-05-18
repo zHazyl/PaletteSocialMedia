@@ -14,7 +14,7 @@ namespace SocialNetwork.Connection
         private MySqlConnection connection;
         public DBMySQLConnection()
         {
-            connection = new MySqlConnection("server=localhost;user=root;database=social_media;port=3306;password=123456");
+            connection = new MySqlConnection("server=localhost;user=root;database=social_media;port=3306;password=$Tnh210302");
         }
         private MySqlConnection Open()
         {

@@ -96,7 +96,6 @@
                         Width="300"
                         Height="30"
                         Margin="10"
-                        Background="#0099FF"
                         BorderBrush="{x:Null}"
                         Click="btnLogin_Click"
                         Content="Login"
@@ -116,7 +115,6 @@
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
                     <TextBlock
-                        FontFamily="Montserrat"
                         FontSize="15"
                         Text="You don't have an account yet? " />
                     <TextBlock
@@ -124,7 +122,7 @@
                         Cursor="Hand"
                         FontFamily="Montserrat"
                         FontSize="15"
-                        Foreground="Blue"
+                        Foreground="#7d4dcd"
                         MouseDown="btnSignUp_MouseDown"
                         Text="Sign up?" />
                 </WrapPanel>

@@ -93,6 +93,7 @@
                                         Width="600"
                                         VerticalAlignment="Center"
                                         FontWeight="Bold"
+                                        Foreground="#7d4dcd"
                                         Text="{Binding Path=Username}">
                                         <TextBlock.Cursor>Hand</TextBlock.Cursor>
                                         <TextBlock.InputBindings>
@@ -103,7 +104,7 @@
                                         Margin="10 0"
                                         Width="600"
                                         VerticalAlignment="Center"
-                                        FontWeight="Bold"
+                                        FontWeight="Medium"
                                         Text="{Binding Path=Name}">
                                         <TextBlock.Cursor>Hand</TextBlock.Cursor>
                                         <TextBlock.InputBindings>

@@ -82,14 +82,7 @@
                                 Kind="Search" />
                         </StackPanel>
                     </TabItem.Header>
-                    <TextBlock>
-                        <Run Text="" />
-                        <LineBreak />
-                        <LineBreak />
-                        <Run FontStyle="Italic">
-                            Praesent sed dui arcu. Vivamus porta auctor sagittis
-                        </Run>
-                    </TextBlock>
+                    <local:Search Margin="0,0,0,5" SearchUser="{Binding SearchUser, ElementName=myWindow}" />
                 </TabItem>
                 <TabItem Margin="4" IsSelected="{Binding IsSelectedChat}" Name="ChatTab">
                     <TabItem.Header>
@@ -156,7 +149,7 @@
                     </TabItem.Header>
                     <local:Home Margin="0,0,0,5" Self="{Binding Explore, ElementName=myWindow}" />
                 </TabItem>
-                <TabItem Margin="4">
+                <!--<TabItem Margin="4">
                     <TabItem.Header>
                         <StackPanel Width="auto" Height="auto">
                             <materialDesign:PackIcon
@@ -174,7 +167,7 @@
                             Praesent sed dui arcu. Vivamus porta auctor sagittis
                         </Run>
                     </TextBlock>
-                </TabItem>
+                </TabItem>-->
                 <TabItem Margin="4" IsSelected="{Binding isSelectedProfile}" Name="ProfileTab">
                     <TabItem.Header>
                         <StackPanel Width="auto" Height="auto">
