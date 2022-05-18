@@ -60,7 +60,7 @@
                 materialDesign:NavigationRailAssist.ShowSelectionBackground="True"
                 Style="{StaticResource MaterialDesignNavigationRailTabControl}"
                 TabStripPlacement="Bottom">
-                <TabItem Margin="4">
+                <TabItem Margin="4" IsSelected="True" Name="HomeTab">
                     <TabItem.Header>
                         <StackPanel Width="auto" Height="auto">
                             <materialDesign:PackIcon
@@ -72,7 +72,7 @@
                     </TabItem.Header>
                     <local:Home Margin="0,0,0,5" Self="{Binding Self, ElementName=myWindow}" />
                 </TabItem>
-                <TabItem Margin="4">
+                <TabItem Margin="4" IsSelected="{Binding IsSelectedSearch}" Name="SearchTab">
                     <TabItem.Header>
                         <StackPanel Width="auto" Height="auto">
                             <materialDesign:PackIcon
@@ -82,9 +82,16 @@
                                 Kind="Search" />
                         </StackPanel>
                     </TabItem.Header>
-                    <local:Search Margin="0,0,0,5" SearchUser="{Binding SearchUser, ElementName=myWindow}" />
+                    <TextBlock>
+                        <Run Text="" />
+                        <LineBreak />
+                        <LineBreak />
+                        <Run FontStyle="Italic">
+                            Praesent sed dui arcu. Vivamus porta auctor sagittis
+                        </Run>
+                    </TextBlock>
                 </TabItem>
-                <TabItem Margin="4">
+                <TabItem Margin="4" IsSelected="{Binding IsSelectedChat}" Name="ChatTab">
                     <TabItem.Header>
                         <StackPanel Width="auto" Height="auto">
                             <materialDesign:PackIcon
@@ -137,7 +144,7 @@
                         </StackPanel>
                     </ScrollViewer>
                 </TabItem>
-                <TabItem>
+                <TabItem Margin="4" IsSelected="{Binding isSelectedExplore}" Name="ExploreTab">
                     <TabItem.Header>
                         <StackPanel Width="auto" Height="auto">
                             <materialDesign:PackIcon
@@ -168,7 +175,7 @@
                         </Run>
                     </TextBlock>
                 </TabItem>
-                <TabItem Margin="4">
+                <TabItem Margin="4" IsSelected="{Binding isSelectedProfile}" Name="ProfileTab">
                     <TabItem.Header>
                         <StackPanel Width="auto" Height="auto">
                             <materialDesign:PackIcon

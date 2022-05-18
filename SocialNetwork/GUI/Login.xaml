@@ -10,6 +10,48 @@
     Width="400"
     Height="400"
     mc:Ignorable="d">
+    <Window.Resources>
+        <Style x:Key="LabelTextBox" TargetType="{x:Type TextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid>
+                            <Border
+                                Padding="10"
+                                Background="White"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="2" />
+                            <ScrollViewer
+                                x:Name="PART_ContentHost"
+                                Margin="10,0,10,0"
+                                VerticalAlignment="Center" />
+                            <Label
+                                x:Name="Label"
+                                Margin="10,0,10,0"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Stretch"
+                                VerticalContentAlignment="Center"
+                                Content="{TemplateBinding Tag}"
+                                Cursor="IBeam"
+                                FontFamily="Montserrat"
+                                Foreground="#272727"
+                                Visibility="Collapsed" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Text" Value="" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="Label" Property="Visibility" Value="Visible" />
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
     <Grid Background="Gainsboro">
         <WrapPanel
             HorizontalAlignment="Center"
@@ -51,7 +93,11 @@
                         materialDesign:HintAssist.HelperText="At least 8 characters" />
                     <Button
                         x:Name="btnLogin"
+                        Width="300"
+                        Height="30"
                         Margin="10"
+                        Background="#0099FF"
+                        BorderBrush="{x:Null}"
                         Click="btnLogin_Click"
                         Content="Login"
                         FontSize="15"
@@ -70,11 +116,13 @@
                     VerticalAlignment="Center"
                     Orientation="Horizontal">
                     <TextBlock
+                        FontFamily="Montserrat"
                         FontSize="15"
                         Text="You don't have an account yet? " />
                     <TextBlock
                         x:Name="btnSignUp"
                         Cursor="Hand"
+                        FontFamily="Montserrat"
                         FontSize="15"
                         Foreground="Blue"
                         MouseDown="btnSignUp_MouseDown"

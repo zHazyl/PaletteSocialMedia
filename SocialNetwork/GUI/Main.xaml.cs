@@ -24,17 +24,16 @@ namespace SocialNetwork.GUI
     /// <summary>
     /// Interaction logic for Main.xaml
     /// </summary>
-    public partial class Main : Window
+    public partial class Main : Window, INotifyPropertyChanged
     {
         public Main()
         {
             UserBUS userBUS = new UserBUS();
             var user = userBUS.GetUserByUsername("roses_are_rosie");
-            Self = new PostBUS(user);
-            SearchUser = new SearchBUS();
+            Self = new PostBUS(user,this);
             Myself = user;
-            Explore = new PostBUS(user, "explore");
-            Mess = new MessageBUS(user);
+            Explore = new PostBUS(user,this, "explore");
+            Mess = new MessageBUS(user, this);
             //username.Text = Myself.Username;
             //img.ImageSource = new BitmapImage(new Uri(Myself.Profile_photo_url));
             InitializeComponent();
@@ -49,6 +48,9 @@ namespace SocialNetwork.GUI
             SearchUser = new SearchBUS();
             Explore = new PostBUS(self, "explore");
             Mess = new MessageBUS(self);
+            Self = new PostBUS(self, this);
+            Explore = new PostBUS(self, this, "explore");
+            Mess = new MessageBUS(self,this);
             InitializeComponent();
         }
 
@@ -139,6 +141,62 @@ DependencyProperty.Register("Mess", typeof(MessageBUS), typeof(Main), new Framew
             var postDAO = new PostDAO();
             int post_id = postDAO.AddPost(Myself.User_id, status.Text);
             photoDAO.AddPhoto(post_id, url);
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        void OnPropertyChanged(string name) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+
+        private bool _isSelectedHome;
+        public bool IsSelectedHome
+        {
+            get => _isSelectedHome;
+            set
+            {
+                _isSelectedHome = value;
+                OnPropertyChanged("IsSelectedHome");
+            }
+        }
+        private bool _isSelectedChat;
+        public bool IsSelectedChat
+        {
+            get => _isSelectedChat;
+            set
+            {
+                _isSelectedChat = value;
+                OnPropertyChanged("IsSelectedChat");
+            }
+        }
+        private bool _isSelectedExplore;
+        public bool IsSelectedExplore
+        {
+            get => _isSelectedExplore;
+            set
+            {
+                _isSelectedExplore = value;
+                OnPropertyChanged("IsSelectedExplore");
+            }
+        }
+        private bool _isSelectedProfile;
+        public bool IsSelectedProfile
+        {
+            get => _isSelectedProfile;
+            set
+            {
+                _isSelectedProfile = value;
+                OnPropertyChanged("IsSelectedProfile");
+            }
+        }
+
+        private bool _isSelectedSearch;
+        public bool IsSelectedSearch
+        {
+            get => _isSelectedSearch;
+            set
+            {
+                _isSelectedSearch = value;
+                OnPropertyChanged("IsSelectedSearch");
+            }
         }
     }
 }

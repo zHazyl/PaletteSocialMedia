@@ -1,4 +1,5 @@
-﻿using SocialNetwork.Connection;
+﻿using MySql.Data.MySqlClient;
+using SocialNetwork.Connection;
 using SocialNetwork.DTO;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace SocialNetwork.DAO
 {
-    public class PostDAO
+    public class Comment_likeDAO
     {
         private DBMySQLConnection connection;
 
-        public PostDAO()
+        public Comment_likeDAO()
         {
             connection = new DBMySQLConnection();
         }
@@ -70,42 +71,47 @@ namespace SocialNetwork.DAO
             }
         }
 
-        public List<Post> GetAllPosts()
+        public List<Comment_like> GetAllComment_likes()
         {
-            string sql = "select * from post order by created_at DESC limit 20;";
+            string sql = "select * from comment_likes";
             DataTable dataTable = connection.executeRetrieveQuery(sql);
 
-            List<Post> posts = ConvertDataTableToList<Post>(dataTable);
-            return posts;
-            
+            List<Comment_like> comment_likes = ConvertDataTableToList<Comment_like>(dataTable);
+            return comment_likes;
+
         }
 
-        public List<Post> GetAllFollowPosts(User user)
+        public List<User> GetComment_likesWithComment(int comment_id)
         {
-            string sql = $"select * from post where user_id in (select followee_id from follows where follower_id = {user.User_id}) and user_id != {user.User_id} order by created_at DESC limit 20;";
+            string sql = $"select * from comment_likes where comment_id = {comment_id}";
             DataTable dataTable = connection.executeRetrieveQuery(sql);
 
-            List<Post> posts = ConvertDataTableToList<Post>(dataTable);
-            return posts;
+            List<Comment_like> comment_likes = ConvertDataTableToList<Comment_like>(dataTable);
+            var users = new List<User>();
+            UserDAO userDAO = new UserDAO();
+            foreach (Comment_like comment in comment_likes)
+            {
+                users.Add(userDAO.GetUserWithId(comment.User_id));
+            }
+            return users;
         }
 
-        public List<Post> GetAllNotFollowPosts(User user)
+        public int GetLikes(int comment_id)
         {
-            string sql = $"select * from post where user_id not in (select followee_id from follows where follower_id = {user.User_id}) and user_id != {user.User_id} order by created_at DESC limit 20;";
+            string sql = $"SELECT COUNT(user_id) AS Likes FROM comment_likes Where (comment_id = {comment_id});";
             DataTable dataTable = connection.executeRetrieveQuery(sql);
-
-            List<Post> posts = ConvertDataTableToList<Post>(dataTable);
-            return posts;
+            return Int32.Parse(dataTable.Rows[0]["Likes"].ToString());
         }
 
-        public int AddPost(int user_id, string caption)
+        public void DeleteLike(int user_id, int comment_id)
         {
-            string sql = $"INSERT INTO post (user_id, caption) VALUES ({user_id},'{caption}');";
+            string sql = $"DELETE FROM comment_likes WHERE comment_id = {comment_id} and user_id = {user_id}; ";
+            connection.executeDeleteQuery(sql);
+        }
+        public void AddLike(int user_id, int comment_id)
+        {
+            string sql = $"INSERT INTO comment_likes (user_id, comment_id) VALUES ({user_id}, {comment_id});";
             connection.executeInsertQuery(sql);
-            sql = $"select max(post_id) as post_id from post";
-            DataTable dataTable = connection.executeRetrieveQuery(sql);
-            return (int)dataTable.Rows[0][0];
         }
-
     }
 }

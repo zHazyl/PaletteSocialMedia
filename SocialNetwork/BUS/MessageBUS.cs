@@ -1,6 +1,7 @@
 ﻿using SocialNetwork.BUS.Commands;
 using SocialNetwork.DAO;
 using SocialNetwork.DTO;
+using SocialNetwork.GUI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,13 +18,29 @@ namespace SocialNetwork.BUS
         void OnPropertyChanged(string name) =>
     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
-        public ObservableCollection<ContactView> Contacts { get; set; }
+        private ObservableCollection<ContactView> contacts;
+        public ObservableCollection<ContactView> Contacts
+        {
+            get => contacts;
+            set
+            {
+                contacts = value;
+                OnPropertyChanged("Contacts");
+            }
+        }
 
         public User Self { get; set; }
 
         public MessageBUS(User self)
         {
             Self = self;
+            LoadMess();
+        }
+
+        public MessageBUS(User self, Main main)
+        {
+            Self = self;
+            Main = main;
             LoadMess();
         }
 
@@ -119,6 +136,32 @@ namespace SocialNetwork.BUS
             var messageDAO = new MessageDAO();
             messageDAO.AddMessage(msg);
             Message = "";
+        }
+
+        private Main _main;
+        public Main Main
+        {
+            get { return _main; }
+            set
+            {
+                _main = value;
+                OnPropertyChanged("Main");
+            }
+        }
+
+        private BaseCommand _searchTabCommand;
+        public BaseCommand SearchTabCommand
+        {
+            get
+            {
+                return _searchTabCommand ?? (_searchTabCommand = new BaseCommand(param => SearchTab(param)));
+            }
+        }
+
+        public void SearchTab(object o)
+        {
+            Main.SearchTab.IsSelected = true;
+            Main.HomeTab.IsSelected = false;
         }
     }
 }
