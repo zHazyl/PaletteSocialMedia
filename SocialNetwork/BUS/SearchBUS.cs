@@ -1,6 +1,7 @@
 ﻿using SocialNetwork.BUS.Commands;
 using SocialNetwork.DAO;
 using SocialNetwork.DTO;
+using SocialNetwork.GUI;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -37,6 +38,18 @@ namespace SocialNetwork.BUS
                 OnPropertyChanged("SearchTerm");
             }
         }
+
+        private Main _main;
+        public Main Main
+        {
+            get { return _main; }
+            set
+            {
+                _main = value;
+                OnPropertyChanged("Main");
+            }
+        }
+
         public User Self { get; set; }
 
         private UserDAO userDAO = new UserDAO();
@@ -57,6 +70,13 @@ namespace SocialNetwork.BUS
             LoadSearch();
         }
 
+        public SearchBUS(Main main)
+        {
+            Main = main;
+            SearchTerm = "";
+            LoadSearch();
+        }
+
         public void LoadSearch()
         {
             ResultSearch = new ObservableCollection<User>();
@@ -65,5 +85,27 @@ namespace SocialNetwork.BUS
                 ResultSearch.Add(user);
             }
         }
+
+        private BaseCommand _searchTabCommand;
+        public BaseCommand SearchTabCommand
+        {
+            get
+            {
+                return _searchTabCommand ?? (_searchTabCommand = new BaseCommand(param => SearchTab(param)));
+            }
+        }
+
+        public void SearchTab(object user)
+        {
+            var rs = (User)user;
+            Main.Result = rs;
+            Main.SearchUser.ResultSearch.Clear();
+            Main.ResultSearch = new PostBUS(rs, Main, "search");
+            Main.IsSelectedSearch = false;
+            Main.IsSelectedSearch = true;
+            Main.HomeTab.IsSelected = false;
+            Main.ChatTab.IsSelected = false;
+        }
+
     }
 }

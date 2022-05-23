@@ -39,18 +39,28 @@ namespace SocialNetwork.GUI
             InitializeComponent();
         }
         public User Myself { get; set; }
+        private User _result;
+        public User Result
+        {
+            get { return _result; }
+            set
+            {
+                _result = value;
+                OnPropertyChanged("Result");
+            }
+        }
+
         public Main(User self)
         {
             Myself = self;
             //username.Text = self.Username;
             //img.ImageSource = new BitmapImage(new Uri(self.Profile_photo_url));
-            Self = new PostBUS(self);
-            SearchUser = new SearchBUS();
-            Explore = new PostBUS(self, "explore");
-            Mess = new MessageBUS(self);
+            SearchUser = new SearchBUS(this);
             Self = new PostBUS(self, this);
             Explore = new PostBUS(self, this, "explore");
-            Mess = new MessageBUS(self,this);
+            Mess = new MessageBUS(self, this);
+            Result = self;
+            ResultSearch = null;
             InitializeComponent();
         }
 
@@ -60,6 +70,18 @@ namespace SocialNetwork.GUI
         {
             get { return (PostBUS)GetValue(SelfProperty); }
             set { SetValue(SelfProperty, value); }
+        }
+
+        public static readonly DependencyProperty ResultSearchProperty =
+DependencyProperty.Register("ResultSearch", typeof(PostBUS), typeof(Main), new FrameworkPropertyMetadata(null));
+        public PostBUS ResultSearch
+        {
+            get { return (PostBUS)GetValue(ResultSearchProperty); }
+            set 
+            { 
+                SetValue(ResultSearchProperty, value);
+                OnPropertyChanged("ResultSearch");
+            }
         }
 
         public static readonly DependencyProperty ExploreProperty =
@@ -72,7 +94,7 @@ DependencyProperty.Register("Explore", typeof(PostBUS), typeof(Main), new Framew
 
         public static readonly DependencyProperty SearchUserProperty =
 DependencyProperty.Register("SearchUser", typeof(SearchBUS), typeof(Main), new FrameworkPropertyMetadata(null));
-        private SearchBUS SearchUser
+        public SearchBUS SearchUser
         {
             get { return (SearchBUS)GetValue(SearchUserProperty); }
             set { SetValue(SearchUserProperty, value); }
@@ -188,13 +210,12 @@ DependencyProperty.Register("Mess", typeof(MessageBUS), typeof(Main), new Framew
             }
         }
 
-        private bool _isSelectedSearch;
         public bool IsSelectedSearch
         {
-            get => _isSelectedSearch;
+            get => SearchTab.IsSelected;
             set
             {
-                _isSelectedSearch = value;
+                SearchTab.IsSelected = value;
                 OnPropertyChanged("IsSelectedSearch");
             }
         }

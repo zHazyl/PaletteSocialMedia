@@ -6,7 +6,15 @@ namespace SocialNetwork.DTO
     {
         public User()
         {
-
+            User_id = 0;
+            Name = "";
+            Username = "";
+            Phone = "";
+            Email = "";
+            Password = "";
+            Gender = "";
+            Profile_photo_url = "";
+            Bio = "";
         }
         public User(string name, string username, string phone, string email, string password, string gender)
         {

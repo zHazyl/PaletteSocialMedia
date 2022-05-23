@@ -67,15 +67,22 @@ namespace SocialNetwork.BUS
         {
             Comment = "";
             Self = self;
-            LoadViewExplorePosts();
+            LoadViewPosts(explore);
             DisplayLikeCommand = new LikeCommand(DisplayLike);
         }
-        public PostBUS(User self, Main main, string explore)
+        public PostBUS(User self, Main main, string feature)
         {
             Comment = "";
             Main = main;
             Self = self;
-            LoadViewExplorePosts();
+            if (feature == "explore")
+            {
+                LoadViewPosts(feature);
+            }
+            else
+            {
+                LoadViewPosts(feature);
+            }
             DisplayLikeCommand = new LikeCommand(DisplayLike);
         }
 
@@ -99,8 +106,12 @@ namespace SocialNetwork.BUS
             }
         }
 
-        public void SearchTab(object o)
+        public void SearchTab(object user)
         {
+            var rs = (User)user;
+            Main.Result = rs;
+            Main.SearchUser.ResultSearch.Clear();
+            Main.ResultSearch = new PostBUS(rs, Main, "search");
             Main.SearchTab.IsSelected = true;
             Main.HomeTab.IsSelected = false;
         }
@@ -121,9 +132,21 @@ namespace SocialNetwork.BUS
             Users_liked = users_liked;
             Comment = comment;
          */
-        void LoadViewPosts()
+        void LoadViewPosts(string feature = "follow")
         {
-            var posts = postDAO.GetAllFollowPosts(Self);// List<Post>
+            List<Post> posts;
+            if (feature == "follow")
+            {
+                posts = postDAO.GetAllFollowPosts(Self);// List<Post>
+            }
+            else if (feature == "explore")
+            {
+                posts = postDAO.GetAllNotFollowPosts(Self);// List<Post>
+            }
+            else
+            {
+                posts = postDAO.GetAllUserPosts(Main.Result);// List<Post>
+            }
             var userDAO = new UserDAO();
             var photoDAO = new PhotoDAO();
             var post_likeDAO = new Post_likeDAO();
@@ -159,37 +182,71 @@ namespace SocialNetwork.BUS
             }
         }
 
-        void LoadViewExplorePosts()
-        {
-            var posts = postDAO.GetAllNotFollowPosts(Self);// List<Post>
-            var userDAO = new UserDAO();
-            var photoDAO = new PhotoDAO();
-            var post_likeDAO = new Post_likeDAO();
-            var commentDAO = new CommentDAO();
-            Viewposts = new ObservableCollection<ViewPost>();
-            ObservableCollection<CommentView> comments;
-            foreach (var post in posts)
-            {
-                comments = new ObservableCollection<CommentView>();
-                var cmts = commentDAO.GetCommentsWithPost(post.Post_id); //List<Comment>
-                foreach (var cmt in cmts)
-                {
-                    comments.Add(new CommentView(userDAO.GetUserWithId(cmt.User_id), cmt));
-                }
-                var postlike = post_likeDAO.GetPost_likesWithPost(post.Post_id);
-                bool isliked = postlike.Any(usr => usr.User_id == Self.User_id);
-                Viewposts.Add(new ViewPost(
-                    post,
-                    userDAO.GetUserWithId(post.User_id),
-                    photoDAO.GetPhotosWithPost(post.Post_id),
-                    post_likeDAO.GetLikes(post.Post_id),
-                    isliked,
-                    commentDAO.GetComments(post.Post_id),
-                    postlike,
-                    comments
-                    ));
-            }
-        }
+        //void LoadViewExplorePosts()
+        //{
+        //    var posts = postDAO.GetAllNotFollowPosts(Self);// List<Post>
+        //    var userDAO = new UserDAO();
+        //    var photoDAO = new PhotoDAO();
+        //    var post_likeDAO = new Post_likeDAO();
+        //    var commentDAO = new CommentDAO();
+        //    Viewposts = new ObservableCollection<ViewPost>();
+        //    ObservableCollection<CommentView> comments;
+        //    foreach (var post in posts)
+        //    {
+        //        comments = new ObservableCollection<CommentView>();
+        //        var cmts = commentDAO.GetCommentsWithPost(post.Post_id); //List<Comment>
+        //        foreach (var cmt in cmts)
+        //        {
+        //            comments.Add(new CommentView(userDAO.GetUserWithId(cmt.User_id), cmt));
+        //        }
+        //        var postlike = post_likeDAO.GetPost_likesWithPost(post.Post_id);
+        //        bool isliked = postlike.Any(usr => usr.User_id == Self.User_id);
+        //        Viewposts.Add(new ViewPost(
+        //            post,
+        //            userDAO.GetUserWithId(post.User_id),
+        //            photoDAO.GetPhotosWithPost(post.Post_id),
+        //            post_likeDAO.GetLikes(post.Post_id),
+        //            isliked,
+        //            commentDAO.GetComments(post.Post_id),
+        //            postlike,
+        //            comments
+        //            ));
+        //    }
+        //}
+
+        //void LoadViewProfilePosts()
+        //{
+        //    var posts = postDAO.GetAllUserPosts(Main.Result);// List<Post>
+        //    var userDAO = new UserDAO();
+        //    var photoDAO = new PhotoDAO();
+        //    var post_likeDAO = new Post_likeDAO();
+        //    var commentDAO = new CommentDAO();
+        //    Viewposts = new ObservableCollection<ViewPost>();
+        //    ObservableCollection<CommentView> comments;
+        //    foreach (var post in posts)
+        //    {
+        //        comments = new ObservableCollection<CommentView>();
+        //        var cmts = commentDAO.GetCommentsWithPost(post.Post_id); //List<Comment>
+        //        foreach (var cmt in cmts)
+        //        {
+        //            comments.Add(new CommentView(userDAO.GetUserWithId(cmt.User_id), cmt));
+        //        }
+        //        var postlike = post_likeDAO.GetPost_likesWithPost(post.Post_id);
+        //        bool isliked = postlike.Any(usr => usr.User_id == Self.User_id);
+        //        Viewposts.Add(new ViewPost(
+        //            post,
+        //            userDAO.GetUserWithId(post.User_id),
+        //            photoDAO.GetPhotosWithPost(post.Post_id),
+        //            post_likeDAO.GetLikes(post.Post_id),
+        //            isliked,
+        //            commentDAO.GetComments(post.Post_id),
+        //            postlike,
+        //            comments
+        //            ));
+        //    }
+
+        //}
+
 
         private LikeCommand _displayLikeCommand;
         public LikeCommand DisplayLikeCommand {

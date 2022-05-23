@@ -158,8 +158,12 @@ namespace SocialNetwork.BUS
             }
         }
 
-        public void SearchTab(object o)
+        public void SearchTab(object user)
         {
+            var rs = (User)user;
+            Main.Result = rs;
+            Main.SearchUser.ResultSearch.Clear();
+            Main.ResultSearch = new PostBUS(rs, Main, "search");
             Main.SearchTab.IsSelected = true;
             Main.HomeTab.IsSelected = false;
         }

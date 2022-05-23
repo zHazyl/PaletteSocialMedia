@@ -22,6 +22,9 @@
     <Compile Update="GUI\SelfProfile.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="GUI\UserControl1.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="GUI\Chat.xaml">
@@ -37,6 +40,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\SelfProfile.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\UserControl1.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

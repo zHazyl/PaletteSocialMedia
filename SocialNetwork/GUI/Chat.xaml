@@ -51,7 +51,9 @@
                                             <ImageBrush ImageSource="{Binding User.Profile_photo_url}" RenderOptions.BitmapScalingMode="HighQuality" />
                                         </Border.Background>
                                         <Border.InputBindings>
-                                            <MouseBinding Command="{Binding DataContext.SearchTabCommand, ElementName=This}" MouseAction="LeftClick" />
+                                            <MouseBinding Command="{Binding DataContext.SearchTabCommand, ElementName=This}" 
+                                                          MouseAction="LeftClick"
+                                                          CommandParameter="{Binding User}"/>
                                         </Border.InputBindings>
                                         <Border.Cursor>Hand</Border.Cursor>
                                     </Border>
@@ -64,7 +66,7 @@
                                         <Run FontWeight="Bold" Text="{Binding User.Username}">
                                             <Run.Cursor>Hand</Run.Cursor>
                                             <Run.InputBindings>
-                                                <MouseBinding Command="{Binding DataContext.SearchTabCommand, ElementName=This}" MouseAction="LeftClick" />
+                                                <MouseBinding Command="{Binding DataContext.SearchTabCommand, ElementName=This}" CommandParameter="{Binding User}" MouseAction="LeftClick" />
                                             </Run.InputBindings>
                                         </Run>
                                     </TextBlock>

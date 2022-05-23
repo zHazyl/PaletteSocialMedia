@@ -80,6 +80,16 @@ namespace SocialNetwork.DAO
             
         }
 
+        public List<Post> GetAllUserPosts(User user)
+        {
+            string sql = $"select * from post where user_id = {user.User_id};";
+            DataTable dataTable = connection.executeRetrieveQuery(sql);
+
+            List<Post> posts = ConvertDataTableToList<Post>(dataTable);
+            return posts;
+
+        }
+
         public List<Post> GetAllFollowPosts(User user)
         {
             string sql = $"select * from post where user_id in (select followee_id from follows where follower_id = {user.User_id}) and user_id != {user.User_id} order by created_at DESC limit 20;";
