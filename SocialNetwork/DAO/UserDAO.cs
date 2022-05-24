@@ -104,7 +104,7 @@ namespace SocialNetwork.DAO
         }
         public void AddUser(User newUser)
         {
-            string sql = "insert into Users(name, username, phone, email, password, gender) values(@name, @username, @phone, @email, @password, @gender)";
+            string sql = "insert into users(name, username, phone, email, password, gender) values(@name, @username, @phone, @email, @password, @gender)";
             MySqlParameter[] mySqlParameters = new MySqlParameter[6];
             mySqlParameters[0] = new MySqlParameter("@name", SqlDbType.NVarChar);
             mySqlParameters[0].Value = Convert.ToString(newUser.Name);

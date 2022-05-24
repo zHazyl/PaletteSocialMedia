@@ -1,0 +1,6 @@
+- Bước 1: Mở file database.sql trong MySQL
+- Bước 2: Xóa database có tên 'social_media' nếu có trước đó
+- Bước 3: Chạy toàn bộ lệnh trong file database.sql vừa mở
+- Bước 4: Mở file SocialNetwork.sln bằng Visual Studio
+- Bước 5: Sửa biến connection trong file Connection/DBMySQLConnection.cs thành connection string của bạn
+- Bước 6; Chạy project

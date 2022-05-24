@@ -38,51 +38,6 @@ internal class UserBUS
     }
     public bool AddUser(User newUser)
     {
-        if (newUser.Username == null)
-        {
-            MessageBox.Show("Vui lòng nhập tên người dùng!");
-            return false;
-        }
-        if (newUser.Name == null)
-        {
-            MessageBox.Show("Vui lòng nhập tên đầy đủ!");
-            return false;
-        }
-        if (newUser.Phone == null)
-        {
-            MessageBox.Show("Vui lòng nhập số điện thoại!");
-            return false;
-        }
-        if (newUser.Email == null)
-        {
-            MessageBox.Show("Vui lòng nhập email!");
-            return false;
-        }
-        if (newUser.Password == null)
-        {
-            MessageBox.Show("Vui lòng nhập mật khẩu!");
-            return false;
-        }
-
-        List<User> users = userDAO.GetAllUsers();
-        foreach (User user in users)
-        {
-            if (user.Username.Equals(newUser.Username))
-            {
-                MessageBox.Show("Tên người dùng đã tồn tại");
-                return false;
-            }
-            if (user.Phone.Equals(newUser.Phone))
-            {
-                MessageBox.Show("Số điện thoại đã tồn tại!");
-                return false;
-            }
-            if (user.Email.Equals(newUser.Email))
-            {
-                MessageBox.Show("Email đã tồn tại!");
-                return false;
-            }
-        }
         userDAO.AddUser(newUser);
         return true;
     }
@@ -94,12 +49,12 @@ internal class UserBUS
         #region Chuỗi lệnh kiểm tra đã nhập đầu vào hay chưa
         if (username == "")
         {
-            MessageBox.Show("Vui lòng nhập tên người dùng!");
+            MessageBox.Show("Please enter username!");
             return false;
         }
         else if (password == "")
         {
-            MessageBox.Show("Vui lòng nhập mật khẩu!");
+            MessageBox.Show("Please enter password!");
             return false;
         }
         #endregion
@@ -107,14 +62,14 @@ internal class UserBUS
         #region Chuỗi lệnh kiểm tra xem tài khoản có hợp lệ hay không
         if (user == null)
         {
-            MessageBox.Show("Tài khoản không tồn tại!");
+            MessageBox.Show("Account does not exist!");
             return false;
         }
         else
         {
             if (password != user.Password)
             {
-                MessageBox.Show("Mật khẩu không đúng!");
+                MessageBox.Show("Incorrect password!");
                 return false;
             }
         }
@@ -125,58 +80,62 @@ internal class UserBUS
     public bool CheckRegister(string name, string gender, string username, string phone, string email, string password, string repassword)
     {
         #region Chuỗi lệnh kiểm tra đã nhập đầu vào hay chưa
-        if (name == "")
+        if (username == "")
         {
-            MessageBox.Show("Vui lòng nhập họ và tên!");
+            MessageBox.Show("Please enter username!");
             return false;
         }
-        else if (gender == "")
+        else if (name == "")
         {
-            MessageBox.Show("Vui lòng chọn giới tính!");
-            return false;
-        }
-        else if (username == "")
-        {
-            MessageBox.Show("Vui lòng nhập tên người dùng!");
+            MessageBox.Show("Please enter full name!");
             return false;
         }
         else if (phone == "")
         {
-            MessageBox.Show("Vui lòng nhập số điện thoại!");
+            MessageBox.Show("Please enter phone!");
             return false;
         }
         else if (email == "")
         {
-            MessageBox.Show("Vui lòng nhập email!");
+            MessageBox.Show("Please enter email!");
+            return false;
+        }
+        else if (gender == "")
+        {
+            MessageBox.Show("Please enter gender!");
             return false;
         }
         else if (password == "")
         {
-            MessageBox.Show("Vui lòng nhập mật khẩu!");
+            MessageBox.Show("Please enter password!");
             return false;
         }
-        else if (repassword == "")
+        else if (repassword != password)
         {
-            MessageBox.Show("Vui lòng nhập lại mật khẩu!");
+            MessageBox.Show("Repassword is incorrect!");
             return false;
         }
         #endregion
 
         #region Chuỗi lệnh kiểm tra xem thông tin người dùng đã tồn tại hay chưa
-        if (GetUserByUsername(username) != null)
+        List<User> users = userDAO.GetAllUsers();
+        foreach (User user in users)
         {
-            MessageBox.Show("Tên người dùng đã tồn tại!");
-            return false;
-        }
-        else if (GetUserByUsername(phone) != null)
-        {
-            MessageBox.Show("Số điện thoại đã tồn tại!");
-            return false;
-        }
-        else if (GetUserByUsername(email) != null)
-        {
-            MessageBox.Show("Email đã tồn tại!");
-            return false;
+            if (user.Username.Equals(username))
+            {
+                MessageBox.Show("Username already exists. Please enter another username!");
+                return false;
+            }
+            if (user.Phone.Equals(phone))
+            {
+                MessageBox.Show("Phone already exists. Please enter another phone!");
+                return false;
+            }
+            if (user.Email.Equals(email))
+            {
+                MessageBox.Show("Email already exists. Please enter another email!");
+                return false;
+            }
         }
         #endregion
 
