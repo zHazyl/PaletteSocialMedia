@@ -70,19 +70,16 @@ namespace SocialNetwork.BUS
             LoadViewPosts(explore);
             DisplayLikeCommand = new LikeCommand(DisplayLike);
         }
+
+        public string Feature = "follow";
+
         public PostBUS(User self, Main main, string feature)
         {
             Comment = "";
             Main = main;
             Self = self;
-            if (feature == "explore")
-            {
-                LoadViewPosts(feature);
-            }
-            else
-            {
-                LoadViewPosts(feature);
-            }
+            Feature = feature;
+            LoadViewPosts(feature);
             DisplayLikeCommand = new LikeCommand(DisplayLike);
         }
 
@@ -111,6 +108,8 @@ namespace SocialNetwork.BUS
             var rs = (User)user;
             Main.Result = rs;
             Main.SearchUser.ResultSearch.Clear();
+            var userDAO = new UserDAO();
+            Main.SearchUser.IsFollowed = userDAO.IsUsersFollow(Main.Myself.User_id, rs.User_id);
             Main.ResultSearch = new PostBUS(rs, Main, "search");
             Main.SearchTab.IsSelected = true;
             Main.HomeTab.IsSelected = false;
@@ -135,11 +134,11 @@ namespace SocialNetwork.BUS
         void LoadViewPosts(string feature = "follow")
         {
             List<Post> posts;
-            if (feature == "follow")
+            if (Feature == "follow")
             {
                 posts = postDAO.GetAllFollowPosts(Self);// List<Post>
             }
-            else if (feature == "explore")
+            else if (Feature == "explore")
             {
                 posts = postDAO.GetAllNotFollowPosts(Self);// List<Post>
             }

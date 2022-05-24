@@ -81,11 +81,35 @@ namespace SocialNetwork.DAO
         public List<User> GetAllUsersContact(int user_id)
         {
 
-            string sql = $"select * from users where (user_id in (select user2 from contacts where user1 = {user_id})) or  (user_id in (select user1 from contacts where user2 = {user_id}));";
+            string sql = $"select * from users where (user_id in (select user2 from contacts where user1 = {user_id})) or  (user_id in (select user1 from contacts where user2 = {user_id})) order by created_at ASC limit 8;";
             DataTable dataTable = connection.executeRetrieveQuery(sql);
             List<User> userList = ConvertDataTableToList<User>(dataTable);
             return userList;
         }
+        public bool IsUsersFollow(int follower_id, int followee_id)
+        {
+
+            string sql = $"SELECT COUNT(followee_id) AS isfollow FROM follows where follower_id = {follower_id} and followee_id = {followee_id};";
+            DataTable dataTable = connection.executeRetrieveQuery(sql);
+            if (Int32.Parse(dataTable.Rows[0]["isfollow"].ToString()) == 0)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool IsUsersContact(int user1, int user2)
+        {
+
+            string sql = $"SELECT COUNT(user2) AS iscontact FROM contacts where (user1 = {user1} and user2 = {user2}) or (user2 = {user1} and user1 = {user2});";
+            DataTable dataTable = connection.executeRetrieveQuery(sql);
+            if (Int32.Parse(dataTable.Rows[0]["iscontact"].ToString()) == 0)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public User GetUserWithId(int user_id)
         {
             return GetAllUsers().Find(user => user.User_id == user_id);
@@ -119,6 +143,24 @@ namespace SocialNetwork.DAO
             mySqlParameters[5] = new MySqlParameter("@gender", SqlDbType.NVarChar);
             mySqlParameters[5].Value = Convert.ToString(newUser.Gender);
             connection.executeInsertQuery(sql, mySqlParameters);
+        }
+
+        public void AddFollowUser(User follower, User followee)
+        {
+            string sql = $"insert into follows(follower_id,followee_id) values ({follower.User_id},{followee.User_id});";
+            connection.executeInsertQuery(sql);
+        }
+
+        public void DeleteFollowUser(User follower, User followee)
+        {
+            string sql = $"DELETE FROM follows WHERE follower_id = {follower.User_id} and followee_id = {followee.User_id};";
+            connection.executeInsertQuery(sql);
+        }
+
+        public void AddContactUser(User user1, User user2)
+        {
+            string sql = $"insert into contacts(user1,user2) values ({user1.User_id},{user2.User_id});";
+            connection.executeInsertQuery(sql);
         }
     }
 }

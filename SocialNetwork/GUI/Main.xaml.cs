@@ -103,7 +103,7 @@ DependencyProperty.Register("SearchUser", typeof(SearchBUS), typeof(Main), new F
 
         public static readonly DependencyProperty MessProperty =
 DependencyProperty.Register("Mess", typeof(MessageBUS), typeof(Main), new FrameworkPropertyMetadata(null));
-        private MessageBUS Mess
+        public MessageBUS Mess
         {
             get { return (MessageBUS)GetValue(MessProperty); }
             set { SetValue(MessProperty, value); }

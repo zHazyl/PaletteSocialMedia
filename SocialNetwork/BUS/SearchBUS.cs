@@ -99,12 +99,81 @@ namespace SocialNetwork.BUS
         {
             var rs = (User)user;
             Main.Result = rs;
+            IsFollowed = userDAO.IsUsersFollow(Main.Myself.User_id, rs.User_id);
             Main.SearchUser.ResultSearch.Clear();
             Main.ResultSearch = new PostBUS(rs, Main, "search");
-            Main.IsSelectedSearch = false;
             Main.IsSelectedSearch = true;
             Main.HomeTab.IsSelected = false;
             Main.ChatTab.IsSelected = false;
+        }
+
+        private BaseCommand _chatTabCommand;
+        public BaseCommand ChatTabCommand
+        {
+            get
+            {
+                return _chatTabCommand ?? (_chatTabCommand = new BaseCommand(param => ChatTab(param)));
+            }
+        }
+
+        public void ChatTab(object user)
+        {
+            var rs = (User)user;
+            if (!userDAO.IsUsersContact(Main.Myself.User_id, rs.User_id))
+            {
+                userDAO.AddContactUser(Main.Myself, rs);
+                userDAO.AddContactUser(rs, Main.Myself);
+            }
+
+            Main.Mess.LoadMess();
+            foreach (var i in Main.Mess.Contacts)
+            {
+                if (i.User.User_id == rs.User_id)
+                {
+                    Main.Mess.Contacts.Remove(i);
+                    Main.Mess.Contacts.Insert(0, i);
+                    break;
+                }
+            }
+            Main.ChatTab.IsSelected = true;
+            Main.HomeTab.IsSelected = false;
+            Main.SearchTab.IsSelected = false;
+        }
+
+        private bool _isFollowed;
+        public bool IsFollowed
+        {
+            get
+            {
+                return _isFollowed;
+            }
+            set
+            { 
+                _isFollowed = value;
+                OnPropertyChanged("IsFollowed");
+            }
+        }
+
+        private BaseCommand _displayFollowCommand;
+        public BaseCommand DisplayFollowCommand
+        {
+            get
+            {
+                return _displayFollowCommand ?? (_displayFollowCommand = new BaseCommand(param => DisplayFollow(param)));
+            }
+        }
+
+        public void DisplayFollow(object user)
+        {
+            var rs = (User)user;
+            if (IsFollowed)
+            {
+                userDAO.AddFollowUser(Main.Myself, rs);
+            }
+            else
+            {
+                userDAO.DeleteFollowUser(Main.Myself, rs);
+            }
         }
 
     }

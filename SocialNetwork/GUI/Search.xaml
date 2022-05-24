@@ -12,49 +12,49 @@
     mc:Ignorable="d">
     <StackPanel>
         <WrapPanel
-                Margin="10"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                Orientation="Horizontal">
+            Margin="10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Orientation="Horizontal">
             <Border
-                    Width="600"
-                    Height="60"
-                    BorderBrush="LightGray"
-                    BorderThickness="1">
+                Width="600"
+                Height="60"
+                BorderBrush="LightGray"
+                BorderThickness="1">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="40" />
                     </Grid.ColumnDefinitions>
                     <TextBox
-                            Grid.Column="0"
-                            VerticalAlignment="Stretch"
-                            materialDesign:HintAssist.Hint="Search..."
-                            AcceptsReturn="True"
-                            SpellCheck.IsEnabled="True"
-                            Text="{Binding DataContext.SearchTerm, ElementName=This, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                            TextWrapping="Wrap"
-                            VerticalScrollBarVisibility="Auto" />
+                        Grid.Column="0"
+                        VerticalAlignment="Stretch"
+                        materialDesign:HintAssist.Hint="Search..."
+                        AcceptsReturn="True"
+                        SpellCheck.IsEnabled="True"
+                        Text="{Binding DataContext.SearchTerm, ElementName=This, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        TextWrapping="Wrap"
+                        VerticalScrollBarVisibility="Auto" />
                     <Button
-                            Grid.Column="1"
-                            Width="30"
-                            Padding="1,0,1,0"
-                            materialDesign:RippleAssist.IsCentered="True"
-                            Command="{Binding DataContext.LoadSearchCommand, ElementName=This}"
-                            Style="{StaticResource MaterialDesignToolButton}">
+                        Grid.Column="1"
+                        Width="30"
+                        Padding="1,0,1,0"
+                        materialDesign:RippleAssist.IsCentered="True"
+                        Command="{Binding DataContext.LoadSearchCommand, ElementName=This}"
+                        Style="{StaticResource MaterialDesignToolButton}">
                         <materialDesign:PackIcon
-                                Width="30"
-                                Height="30"
-                                Kind="Search" />
+                            Width="30"
+                            Height="30"
+                            Kind="Search" />
                     </Button>
                 </Grid>
             </Border>
             <ListView
-                    x:Name="ListSearch"
-                    HorizontalAlignment="Center"
-                    ItemsSource="{Binding Path=ResultSearch}"
-                    ScrollViewer.CanContentScroll="False"
-                    ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                x:Name="ListSearch"
+                HorizontalAlignment="Center"
+                ItemsSource="{Binding Path=ResultSearch}"
+                ScrollViewer.CanContentScroll="False"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -83,37 +83,37 @@
                                         </Border.Background>
                                         <Border.InputBindings>
                                             <MouseBinding
-                                                    Command="{Binding DataContext.SearchTabCommand, ElementName=This}"
-                                                    CommandParameter="{Binding}"
-                                                    MouseAction="LeftClick" />
+                                                Command="{Binding DataContext.SearchTabCommand, ElementName=This}"
+                                                CommandParameter="{Binding}"
+                                                MouseAction="LeftClick" />
                                         </Border.InputBindings>
                                         <Border.Cursor>Hand</Border.Cursor>
                                     </Border>
                                     <WrapPanel
-                                            Grid.Column="1"
-                                            VerticalAlignment="Center"
-                                            Orientation="Horizontal">
+                                        Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
                                         <TextBlock
-                                                Width="600"
-                                                Margin="10,0"
-                                                VerticalAlignment="Center"
-                                                FontWeight="Bold"
-                                                Foreground="#7d4dcd"
-                                                Text="{Binding Path=Username}">
+                                            Width="600"
+                                            Margin="10,0"
+                                            VerticalAlignment="Center"
+                                            FontWeight="Bold"
+                                            Foreground="#7d4dcd"
+                                            Text="{Binding Path=Username}">
                                             <TextBlock.Cursor>Hand</TextBlock.Cursor>
                                             <TextBlock.InputBindings>
                                                 <MouseBinding
-                                                        Command="{Binding DataContext.SearchTabCommand, ElementName=This}"
-                                                        CommandParameter="{Binding}"
-                                                        MouseAction="LeftClick" />
+                                                    Command="{Binding DataContext.SearchTabCommand, ElementName=This}"
+                                                    CommandParameter="{Binding}"
+                                                    MouseAction="LeftClick" />
                                             </TextBlock.InputBindings>
                                         </TextBlock>
                                         <TextBlock
-                                                Width="600"
-                                                Margin="10,0"
-                                                VerticalAlignment="Center"
-                                                FontWeight="Medium"
-                                                Text="{Binding Path=Name}">
+                                            Width="600"
+                                            Margin="10,0"
+                                            VerticalAlignment="Center"
+                                            FontWeight="Medium"
+                                            Text="{Binding Path=Name}">
                                             <TextBlock.Cursor>Hand</TextBlock.Cursor>
                                             <TextBlock.InputBindings>
                                                 <MouseBinding Command="" MouseAction="LeftClick" />
@@ -134,6 +134,7 @@
                         <ColumnDefinition Width="40" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="40" />
+                        <ColumnDefinition Width="40" />
                     </Grid.ColumnDefinitions>
                     <Border Grid.Column="0" CornerRadius="40">
                         <Border.Background>
@@ -141,63 +142,77 @@
                         </Border.Background>
                         <Border.InputBindings>
                             <MouseBinding
-                                    Command="{Binding DataContext.SearchTabCommand, ElementName=This}"
-                                    CommandParameter="{Binding Main.Result}"
-                                    MouseAction="LeftClick" />
+                                Command="{Binding DataContext.SearchTabCommand, ElementName=This}"
+                                CommandParameter="{Binding Main.Result}"
+                                MouseAction="LeftClick" />
                         </Border.InputBindings>
                         <Border.Cursor>Hand</Border.Cursor>
                     </Border>
                     <WrapPanel
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal">
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
                         <TextBlock
-                                Width="600"
-                                Margin="10,0"
-                                VerticalAlignment="Center"
-                                FontWeight="Bold"
-                                Foreground="#7d4dcd"
-                                Text="{Binding Path=Main.Result.Username}">
+                            Width="600"
+                            Margin="10,0"
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            Foreground="#7d4dcd"
+                            Text="{Binding Path=Main.Result.Username}">
                             <TextBlock.Cursor>Hand</TextBlock.Cursor>
                             <TextBlock.InputBindings>
                                 <MouseBinding
-                                        Command="{Binding DataContext.SearchTabCommand, ElementName=This}"
-                                        CommandParameter="{Binding Main.Result}"
-                                        MouseAction="LeftClick" />
+                                    Command="{Binding DataContext.SearchTabCommand, ElementName=This}"
+                                    CommandParameter="{Binding Main.Result}"
+                                    MouseAction="LeftClick" />
                             </TextBlock.InputBindings>
                         </TextBlock>
                         <TextBlock
-                                Width="600"
-                                Margin="10,0"
-                                VerticalAlignment="Center"
-                                FontWeight="Medium"
-                                Text="{Binding Path=Main.Result.Name}">
+                            Width="600"
+                            Margin="10,0"
+                            VerticalAlignment="Center"
+                            FontWeight="Medium"
+                            Text="{Binding Path=Main.Result.Name}">
                             <TextBlock.Cursor>Hand</TextBlock.Cursor>
                             <TextBlock.InputBindings>
                                 <MouseBinding Command="" MouseAction="LeftClick" />
                             </TextBlock.InputBindings>
                         </TextBlock>
                         <TextBlock
-                                Width="600"
-                                Margin="10,0"
-                                VerticalAlignment="Center"
-                                FontWeight="Medium"
-                                Text="{Binding Path=Main.Result.Bio}">
+                            Width="600"
+                            Margin="10,0"
+                            VerticalAlignment="Center"
+                            FontWeight="Medium"
+                            Text="{Binding Path=Main.Result.Bio}">
                             <TextBlock.Cursor>Hand</TextBlock.Cursor>
                             <TextBlock.InputBindings>
                                 <MouseBinding Command="" MouseAction="LeftClick" />
                             </TextBlock.InputBindings>
                         </TextBlock>
                     </WrapPanel>
+                    <Button
+                        Grid.Column="2"
+                        Width="30"
+                        Margin="0,0,10,0"
+                        Padding="1,0,1,0"
+                        materialDesign:RippleAssist.IsCentered="True"
+                        Command="{Binding DataContext.ChatTabCommand, ElementName=This}"
+                        CommandParameter="{Binding Main.Result}"
+                        Style="{StaticResource MaterialDesignToolButton}">
+                        <materialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Kind="FacebookMessenger" />
+                    </Button>
                     <ToggleButton
-                            Grid.Column="2"
-                            Command="{Binding DataContext.DisplayLikeCommand, ElementName=This}"
-                            CommandParameter="{Binding}"
-                            Content="{materialDesign:PackIcon Kind=Eye,
-                                                              Size=20}"
-                            IsChecked="{Binding IsLiked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
-                            ToolTip="MaterialDesignFlatPrimaryToggleButton" />
+                        Grid.Column="3"
+                        Command="{Binding DataContext.DisplayFollowCommand, ElementName=This}"
+                        CommandParameter="{Binding Main.Result}"
+                        Content="{materialDesign:PackIcon Kind=Eye,
+                                                          Size=20}"
+                        IsChecked="{Binding IsFollowed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
+                        ToolTip="MaterialDesignFlatPrimaryToggleButton" />
                 </Grid>
             </StackPanel>
         </materialDesign:Card>

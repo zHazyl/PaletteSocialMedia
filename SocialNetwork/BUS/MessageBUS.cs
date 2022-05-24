@@ -163,6 +163,8 @@ namespace SocialNetwork.BUS
             var rs = (User)user;
             Main.Result = rs;
             Main.SearchUser.ResultSearch.Clear();
+            var userDAO = new UserDAO();
+            Main.SearchUser.IsFollowed = userDAO.IsUsersFollow(Main.Myself.User_id, rs.User_id);
             Main.ResultSearch = new PostBUS(rs, Main, "search");
             Main.SearchTab.IsSelected = true;
             Main.HomeTab.IsSelected = false;
