@@ -26,6 +26,9 @@ namespace SocialNetwork.GUI
     /// </summary>
     public partial class Main : Window, INotifyPropertyChanged
     {
+        // static user
+        public static User StaticUser;
+
         public Main()
         {
             UserBUS userBUS = new UserBUS();
@@ -61,6 +64,10 @@ namespace SocialNetwork.GUI
             Mess = new MessageBUS(self, this);
             Result = self;
             ResultSearch = null;
+
+            // static user
+            Main.StaticUser = Myself;
+
             InitializeComponent();
         }
 

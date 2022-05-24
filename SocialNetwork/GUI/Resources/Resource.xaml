@@ -1,0 +1,238 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converter="clr-namespace:SocialNetwork.BUS.Converters">
+
+
+
+
+
+    <!--CONVERTER-->
+    <converter:EditProfileConverter x:Key="EditProfileSubmitConverter"/>
+    <converter:ChangePasswordConverter x:Key="ChangePasswordConverter"/>
+
+
+    <!--BUTTON-->
+    <!--Transparent Button-->
+    <Style x:Key="TransparentButton" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding Border.CornerRadius}">
+                        <ContentPresenter x:Name="ContentPresenter"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                          Content="{TemplateBinding Content}" 
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="CircleButton" TargetType="Button" BasedOn="{StaticResource TransparentButton}">
+        <Setter Property="Border.CornerRadius" Value="100"/>
+    </Style>
+
+    <Style x:Key="RoundButton" TargetType="Button" BasedOn="{StaticResource TransparentButton}">
+        <Setter Property="Border.CornerRadius" Value="2"/>
+    </Style>
+
+    <!--Transparent Radio Button-->
+    <Style x:Key="TransparentRadioButton" TargetType="{x:Type RadioButton}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="#fff"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter x:Name="contentPresenter"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="#fafafa"/>
+                <Setter Property="BorderBrush" Value="#dbdbdb"/>
+                <Setter Property="Cursor" Value="Hand"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="BorderBrush" Value="#262626"/>
+                <Setter Property="Foreground" Value="#262626"/>
+                <Setter Property="FontWeight" Value="DemiBold"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Opacity" Value="0.7"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--<Style x:Key="ChangePostsWrapPanel" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource TransparentRadioButton}">
+        <Setter Property="CommandParameter">
+            <Setter.Value>
+                <MultiBinding Converter="{StaticResource ChangePostsWrapPanelConverter}">
+                    <Binding ElementName="PostsWrapPanel"/>
+                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Grid}}"/>
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+
+
+    <!--EDIT PROFILE ...-->
+    <!--Grid Visibility Binding With Radio Button-->
+    <Style x:Key="EditProfileGrid" TargetType="{x:Type Grid}">
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsChecked, ElementName=EditProfileButton}"
+                         Value="True">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ChangePasswordGrid" TargetType="{x:Type Grid}">
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsChecked, ElementName=ChangePasswordButton}"
+                         Value="True">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="EmailNotificationsGrid" TargetType="{x:Type Grid}">
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsChecked, ElementName=EmailNotificationsButton}"
+                         Value="True">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="PrivacyAndSecurityGrid" TargetType="{x:Type Grid}">
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsChecked, ElementName=PrivacyAndSecurityButton}"
+                         Value="True">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="HelpGrid" TargetType="{x:Type Grid}">
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsChecked, ElementName=HelpButton}"
+                         Value="True">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Edit Profile Page: Child Elements-->
+    <Style x:Key="LeftContentEditProfile" TargetType="{x:Type TextBlock}">
+        <Setter Property="Margin" Value="0 5 10 5"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+    </Style>
+
+    <Style x:Key="RightContentEditProfile" TargetType="{x:Type TextBox}">
+        <Setter Property="Margin" Value="15 5 0 5"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="2"/>
+            </Style>
+        </Style.Resources>
+    </Style>
+
+    <!--Change Password Page: Custom PasswordBox-->
+    <Style x:Key="RightContentEditProfilePasswordBox" TargetType="{x:Type PasswordBox}">
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="AllowDrop" Value="true" />
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Margin" Value="15 5 0 5"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Background" Value="#fafafa"/>
+        <Setter Property="BorderBrush" Value="#dbdbdb"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type PasswordBox}">
+                    <Border x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="2">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Disabled" />
+                                <VisualState x:Name="MouseOver" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ScrollViewer x:Name="PART_ContentHost" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="IBeam"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" Value="#a8a8a8"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--CHECKBOX-->
+    <!--Email Notifications Page: Custom CheckBox-->
+    <!--asd-->
+    <Style x:Key="RoundCheckBox" TargetType="{x:Type CheckBox}">
+        <Setter Property="BorderBrush" Value="#dbdbdb"/>
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="2"/>
+            </Style>
+        </Style.Resources>
+    </Style>
+
+
+
+
+
+
+
+
+</ResourceDictionary>

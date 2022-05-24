@@ -145,6 +145,18 @@ namespace SocialNetwork.DAO
             connection.executeInsertQuery(sql, mySqlParameters);
         }
 
+        public void EditProfileUser(User user)
+        {
+            string sql = $"update users set name='{user.Bio}', username='{user.Username}', bio='{user.Bio}', email='{user.Email}' where user_id={user.User_id}";
+            connection.executeUpdateQuery(sql);
+        }
+
+        public void ChangePasswordUser(User user, string password)
+        {
+            string sql = $"update users set password='{password}' where user_id={user.User_id}";
+            connection.executeUpdateQuery(sql);
+        }
+
         public void AddFollowUser(User follower, User followee)
         {
             string sql = $"insert into follows(follower_id,followee_id) values ({follower.User_id},{followee.User_id});";

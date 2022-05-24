@@ -15,6 +15,7 @@
     <None Remove="assets\images\post\2\1.jpg" />
     <None Remove="assets\images\post\3\1.jpg" />
     <None Remove="assets\images\profile_photo_url\1.jpg" />
+    <None Remove="assets\images\profile_photo_url\default_user_image.png" />
     <None Remove="assets\images\roses.jpg" />
     <None Remove="assets\images\roses_avt.jpg" />
   </ItemGroup>
@@ -55,6 +56,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
     <PackageReference Include="MySql.Data" Version="8.0.28" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="assets\images\profile_photo_url\default_user_image.png" />
   </ItemGroup>
 
 </Project>

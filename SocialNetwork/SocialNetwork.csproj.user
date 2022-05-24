@@ -22,6 +22,15 @@
     <Compile Update="GUI\SelfProfile.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="GUI\SelfProfileChangeUserPhoto.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GUI\SelfProfileEdit.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="GUI\SelfProfilePost.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="GUI\UserControl1.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -36,10 +45,22 @@
     <Page Update="GUI\Main.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="GUI\Resources\Resource.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="GUI\Search.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\SelfProfile.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\SelfProfileChangeUserPhoto.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\SelfProfileEdit.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="GUI\SelfProfilePost.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="GUI\UserControl1.xaml">

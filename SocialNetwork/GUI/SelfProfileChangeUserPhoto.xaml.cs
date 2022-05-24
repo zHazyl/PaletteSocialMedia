@@ -1,5 +1,4 @@
-﻿using SocialNetwork.BUS;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,13 +16,12 @@ using System.Windows.Shapes;
 namespace SocialNetwork.GUI
 {
     /// <summary>
-    /// Interaction logic for SelfProfile.xaml
+    /// Interaction logic for SelfProfileChangeUserPhoto.xaml
     /// </summary>
-    public partial class SelfProfile : UserControl
+    public partial class SelfProfileChangeUserPhoto : UserControl
     {
-        public SelfProfile()
+        public SelfProfileChangeUserPhoto()
         {
-            DataContext = new SelfProfileBUS(Main.StaticUser);
             InitializeComponent();
         }
     }

@@ -14,7 +14,7 @@ namespace SocialNetwork.Connection
         private MySqlConnection connection;
         public DBMySQLConnection()
         {
-            connection = new MySqlConnection("server=localhost;user=root;database=social_media;port=3306;password=$Tnh210302");
+            connection = new MySqlConnection("server=localhost;user=root;database=social_media;port=3306;password=root");
         }
         private MySqlConnection Open()
         {
@@ -100,6 +100,25 @@ namespace SocialNetwork.Connection
             {
                 sqlCommand.CommandType = CommandType.Text;
                 sqlCommand.Parameters.AddRange(sqlParameter);
+                try
+                {
+                    sqlCommand.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    Close();
+                }
+            }
+        }
+        public void executeUpdateQuery(String query)
+        {
+            using (MySqlCommand sqlCommand = new MySqlCommand(query, Open()))
+            {
+                sqlCommand.CommandType = CommandType.Text;
                 try
                 {
                     sqlCommand.ExecuteNonQuery();

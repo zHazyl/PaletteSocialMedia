@@ -198,14 +198,7 @@
                                 Kind="Account" />
                         </StackPanel>
                     </TabItem.Header>
-                    <TextBlock>
-                        <Run Text="tab 2 content. Default look and behaviors." />
-                        <LineBreak />
-                        <LineBreak />
-                        <Run FontStyle="Italic">
-                            Praesent sed dui arcu. Vivamus porta auctor sagittis
-                        </Run>
-                    </TextBlock>
+                    <local:SelfProfile Margin="0,0,0,5"/>
                 </TabItem>
             </TabControl>
         </materialDesign:Card>
