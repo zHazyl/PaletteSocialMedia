@@ -31,26 +31,29 @@
             Grid.Row="0"
             Background="#7d4dcd"
             MouseDown="Border_MouseDown">
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button
+            <Grid>
+                <TextBlock Margin="5"  Foreground="#fafafa" FontWeight="Bold">Pellete</TextBlock>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button
                     Height="25"
                     Background="Transparent"
                     BorderThickness="0"
                     Click="ButtonMinimize_Click"
                     Content="_" />
-                <Button
+                    <Button
                     Height="25"
                     Background="Transparent"
                     BorderThickness="0"
                     Click="WindowStateButton_Click"
                     Content="[]" />
-                <Button
+                    <Button
                     Height="25"
                     Background="Transparent"
                     BorderThickness="0"
                     Click="CloseButton_Click"
                     Content="X" />
-            </StackPanel>
+                </StackPanel>
+            </Grid>
         </Border>
         <materialDesign:Card Grid.Row="1">
             <TabControl
