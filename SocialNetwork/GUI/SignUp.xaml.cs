@@ -23,8 +23,8 @@ namespace SocialNetwork.GUI
             string phone = txtBoxPhone.Text;
             string email = txtBoxEmail.Text;
             string gender = txtBoxGender.Text;
-            string password = passwordBox.Password;
-            string repassword = repasswordBox.Password;
+            string password = passwordBox.Password.ToString();
+            string repassword = repasswordBox.Password.ToString();
 
             bool isRegisterSuccess = userBUS.CheckRegister(name, gender, username, phone, email, password, repassword);
 
