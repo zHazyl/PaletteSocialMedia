@@ -123,7 +123,7 @@
                 <TabControl>
                     <TabItem Header="Posts">
                         <!--List of Posts-->
-                        <ListView ItemsSource="{Binding ViewPosts}">
+                        <ListView ItemsSource="{Binding SelfProfilePosts}">
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel Orientation="Horizontal"/>
@@ -142,7 +142,7 @@
                                                 Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
                                             <Image Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}, Path=Width}"
                                                Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}, Path=Height}"
-                                               Source="{Binding Post_photo[0].Photo_url}"/>
+                                               Source="{Binding ViewPost.Post_photo[0].Photo_url}"/>
                                         </Button>
                                     </materialDesign:DialogHost>
                                 </DataTemplate>

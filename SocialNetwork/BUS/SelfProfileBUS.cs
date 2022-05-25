@@ -13,17 +13,18 @@ namespace SocialNetwork.BUS
     {
         private PostDAO _postDAO;
         private User _user;
-        private ObservableCollection<ViewPost> _viewPosts;
+        private ObservableCollection<ViewPost> _viewPosts; // do not break it
+        private ObservableCollection<SelfProfilePostBUS> _selfProfilePosts;
         private SelfProfileCommand _commands;
-        private SelfProfilePostCommand _postCommand;
-        private string _comment;
+        //private SelfProfilePostCommand _postCommand;
+
 
         // prop
         public User User { get => _user; set => _user = value; }
         public ObservableCollection<ViewPost> ViewPosts { get => _viewPosts; }
         public SelfProfileCommand Commands { get => _commands; }
-        public SelfProfilePostCommand PostCommand { get => _postCommand; }
-        public string Comment { get => _comment; set { _comment = value; OnPropertyChanged("Comment"); } }
+        public ObservableCollection<SelfProfilePostBUS> SelfProfilePosts { get => _selfProfilePosts; }
+        //public SelfProfilePostCommand PostCommand { get => _postCommand; }
 
 
         // ctor
@@ -33,9 +34,16 @@ namespace SocialNetwork.BUS
             _postDAO = new PostDAO();
             _viewPosts = new ObservableCollection<ViewPost>();
             _commands = new SelfProfileCommand(_user);
-            _postCommand = new SelfProfilePostCommand(User, ViewPosts, Comment);
+            //_postCommand = new SelfProfilePostCommand(User, ViewPosts, Comment);
 
             LoadViewPosts();
+
+            // load viewPosts into selfProfilePosts
+            _selfProfilePosts = new ObservableCollection<SelfProfilePostBUS>();
+            foreach (var post in _viewPosts)
+            {
+                _selfProfilePosts.Add(new SelfProfilePostBUS(_user, post));
+            }
         }
 
         // func

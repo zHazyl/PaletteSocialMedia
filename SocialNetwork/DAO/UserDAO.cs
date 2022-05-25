@@ -147,7 +147,7 @@ namespace SocialNetwork.DAO
 
         public void EditProfileUser(User user)
         {
-            string sql = $"update users set name='{user.Bio}', username='{user.Username}', bio='{user.Bio}', email='{user.Email}' where user_id={user.User_id}";
+            string sql = $"update users set name='{user.Name}', username='{user.Username}', bio='{user.Bio}', email='{user.Email}' where user_id={user.User_id}";
             connection.executeUpdateQuery(sql);
         }
 
