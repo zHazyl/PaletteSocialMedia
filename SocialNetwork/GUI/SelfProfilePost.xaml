@@ -48,7 +48,7 @@
                         </Grid.ColumnDefinitions>
                         <Border Grid.Column="0" CornerRadius="40">
                             <Border.Background>
-                                <ImageBrush ImageSource="{Binding UserPost.Profile_photo_url, Mode=OneWay}" RenderOptions.BitmapScalingMode="HighQuality" />
+                                <ImageBrush ImageSource="{Binding User.Profile_photo_url, Mode=OneWay}" RenderOptions.BitmapScalingMode="HighQuality" />
                             </Border.Background>
                             <!--<Border.InputBindings>
                             <MouseBinding Command="{Binding DataContext.SearchTabCommand, ElementName=This}" MouseAction="LeftClick" 
@@ -62,7 +62,7 @@
                                     Margin="10"
                                     VerticalAlignment="Center"
                                     FontWeight="Bold"
-                                    Text="{Binding UserPost.Username, Mode=OneWay}">
+                                    Text="{Binding User.Username, Mode=OneWay}">
                             <TextBlock.Cursor>Hand</TextBlock.Cursor>
                         <!--<TextBlock.InputBindings>
                             <MouseBinding Command="{Binding DataContext.SearchTabCommand, ElementName=This}" 
@@ -84,7 +84,7 @@
                                     materialDesign:ColorZoneAssist.Mode="Standard"
                                     materialDesign:NavigationRailAssist.SelectionCornerRadius="50"
                                     materialDesign:NavigationRailAssist.ShowSelectionBackground="True"
-                                    ItemsSource="{Binding Post_photo}"
+                                    ItemsSource="{Binding ViewPost.Post_photo}"
                                     Style="{StaticResource MaterialDesignNavigationRailTabControl}"
                                     TabStripPlacement="Bottom">
                             <TabControl.ContentTemplate>
@@ -140,13 +140,14 @@
                                                 Kind="HeartOutline" />
                                         </Button>-->
                             <ToggleButton
-                                        Command="{Binding DataContext.DisplayLikeCommand, ElementName=This}"
+                                        Command="{Binding PostCommands.DisplayLikeCommand, Mode=OneTime}"
                                         CommandParameter="{Binding}"
                                         Content="{materialDesign:PackIcon Kind=Heart,
                                                                           Size=21}"
-                                        IsChecked="{Binding IsLiked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        IsChecked="{Binding ViewPost.IsLiked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
                                         ToolTip="MaterialDesignFlatPrimaryToggleButton" />
+                            <!--asd-->
                             <Button
                                         Width="30"
                                         Margin="0,0,10,0"
@@ -188,16 +189,16 @@
                                 VerticalAlignment="Center"
                                 FontSize="15"
                                 FontWeight="Medium">
-                                <Run Text="{Binding Path=Likes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" /><Run Text=" Likes" />
+                                <Run Text="{Binding ViewPost.Likes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" /><Run Text=" Likes" />
                     </TextBlock>
                     <TextBlock Margin="5" TextWrapping="Wrap">
-                                <Run FontWeight="Bold" Text="{Binding Path=UserPost.Username}">
+                                <Run FontWeight="Bold" Text="{Binding ViewPost.UserPost.Username}">
                                     <Run.Cursor>Hand</Run.Cursor>
                                     <Run.InputBindings>
                                         <MouseBinding Command="" MouseAction="LeftClick" />
                                     </Run.InputBindings>
                                 </Run>
-                                <Run Text="{Binding Path=Post.Caption}" />
+                                <Run Text="{Binding ViewPost.Post.Caption}" />
                     </TextBlock>
                     <Expander HorizontalAlignment="Stretch">
                         <Expander.Header>
@@ -205,14 +206,14 @@
                                         FontSize="13"
                                         FontWeight="Medium"
                                         Foreground="Gray"
-                                        Text="View all "><Run Text="{Binding Comments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" /> <Run>Comments</Run>
+                                        Text="View all "><Run Text="{Binding ViewPost.Comments, UpdateSourceTrigger=PropertyChanged}" /> <Run>Comments</Run>
                             </TextBlock>
                         </Expander.Header>
                         <StackPanel>
                             <ListView
                                         x:Name="ListComments"
                                         MaxHeight="300"
-                                        ItemsSource="{Binding Comment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        ItemsSource="{Binding ViewPost.Comment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                         ScrollViewer.CanContentScroll="False"
                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                                 <ListView.ItemContainerStyle>
@@ -273,6 +274,7 @@
                                                         IsChecked="{Binding IsLiked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                         Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
                                                         ToolTip="MaterialDesignFlatPrimaryToggleButton" />
+                                            <!--asd-->
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
@@ -282,7 +284,7 @@
                     <TextBlock
                                 Margin="5"
                                 Foreground="Gray"
-                                Text="{Binding Path=Post.Created_at}" />
+                                Text="{Binding ViewPost.Post.Created_at}" />
                     <Border
                                 Margin="0,10,0,0"
                                 BorderBrush="LightGray"
@@ -293,7 +295,7 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="40" />
                             </Grid.ColumnDefinitions>
-                            <Button
+                            <!--<Button
                                         Grid.Column="0"
                                         Width="30"
                                         Padding="1,0,1,0"
@@ -304,7 +306,7 @@
                                             Width="30"
                                             Height="30"
                                             Kind="Sync" />
-                            </Button>
+                            </Button>-->
                             <TextBox
                                         Grid.Column="1"
                                         Margin="10,0,0,0"
@@ -312,7 +314,7 @@
                                         materialDesign:HintAssist.Hint="Add a comment..."
                                         AcceptsReturn="True"
                                         SpellCheck.IsEnabled="True"
-                                        Text="{Binding DataContext.Comment, ElementName=This, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        Text="{Binding Comment, Mode=TwoWay}"
                                         TextWrapping="Wrap"
                                         VerticalScrollBarVisibility="Auto" />
                             <TextBlock
@@ -328,11 +330,12 @@
                                 </TextBlock.Cursor>
                                 <TextBlock.InputBindings>
                                     <MouseBinding
-                                                Command="{Binding DataContext.DisplayCommentCommand, ElementName=This}"
+                                                Command="{Binding PostCommands.DisplayCommentCommand}"
                                                 CommandParameter="{Binding}"
                                                 MouseAction="LeftClick" />
                                 </TextBlock.InputBindings>
                             </TextBlock>
+                            <!--asd-->
                         </Grid>
                     </Border>
                 </StackPanel>
