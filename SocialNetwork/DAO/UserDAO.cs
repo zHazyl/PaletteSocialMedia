@@ -128,26 +128,13 @@ namespace SocialNetwork.DAO
         }
         public void AddUser(User newUser)
         {
-            string sql = "insert into users(name, username, phone, email, password, gender) values(@name, @username, @phone, @email, @password, @gender)";
-            MySqlParameter[] mySqlParameters = new MySqlParameter[6];
-            mySqlParameters[0] = new MySqlParameter("@name", SqlDbType.NVarChar);
-            mySqlParameters[0].Value = Convert.ToString(newUser.Name);
-            mySqlParameters[1] = new MySqlParameter("@username", SqlDbType.NVarChar);
-            mySqlParameters[1].Value = Convert.ToString(newUser.Username);
-            mySqlParameters[2] = new MySqlParameter("@phone", SqlDbType.NVarChar);
-            mySqlParameters[2].Value = Convert.ToString(newUser.Phone);
-            mySqlParameters[3] = new MySqlParameter("@email", SqlDbType.NVarChar);
-            mySqlParameters[3].Value = Convert.ToString(newUser.Email);
-            mySqlParameters[4] = new MySqlParameter("@password", SqlDbType.NVarChar);
-            mySqlParameters[4].Value = Convert.ToString(newUser.Password);
-            mySqlParameters[5] = new MySqlParameter("@gender", SqlDbType.NVarChar);
-            mySqlParameters[5].Value = Convert.ToString(newUser.Gender);
-            connection.executeInsertQuery(sql, mySqlParameters);
+            string sql = $"insert into users(name, username, phone, email, password, gender) values('{newUser.Name}', '{newUser.Username}', '{newUser.Phone}', '{newUser.Email}', '{newUser.Password}', '{newUser.Gender}')";
+            connection.executeInsertQuery(sql);
         }
 
         public void EditProfileUser(User user)
         {
-            string sql = $"update users set name='{user.Bio}', username='{user.Username}', bio='{user.Bio}', email='{user.Email}' where user_id={user.User_id}";
+            string sql = $"update users set name='{user.Name}', username='{user.Username}', bio='{user.Bio}', email='{user.Email}' where user_id={user.User_id}";
             connection.executeUpdateQuery(sql);
         }
 

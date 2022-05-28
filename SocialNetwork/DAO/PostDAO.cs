@@ -82,7 +82,7 @@ namespace SocialNetwork.DAO
 
         public List<Post> GetAllUserPosts(User user)
         {
-            string sql = $"select * from post where user_id = {user.User_id};";
+            string sql = $"select * from post where user_id = {user.User_id} order by created_at DESC;";
             DataTable dataTable = connection.executeRetrieveQuery(sql);
 
             List<Post> posts = ConvertDataTableToList<Post>(dataTable);
