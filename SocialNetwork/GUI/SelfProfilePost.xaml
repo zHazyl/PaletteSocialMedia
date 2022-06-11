@@ -140,7 +140,7 @@
                                                 Kind="HeartOutline" />
                                         </Button>-->
                             <ToggleButton
-                                        Command="{Binding PostCommands.DisplayLikeCommand, Mode=OneTime}"
+                                        Command="{Binding PostCommands.DisplayLikeCommand}"
                                         CommandParameter="{Binding}"
                                         Content="{materialDesign:PackIcon Kind=Heart,
                                                                           Size=21}"
@@ -245,21 +245,21 @@
                                                 <Border.Background>
                                                     <ImageBrush ImageSource="{Binding User.Profile_photo_url}" RenderOptions.BitmapScalingMode="HighQuality" />
                                                 </Border.Background>
-                                                <Border.InputBindings>
+                                                <!--<Border.InputBindings>
                                                     <MouseBinding Command="{Binding DataContext.SearchTabCommand, ElementName=This}" MouseAction="LeftClick"
                                                                           CommandParameter="{Binding User}"/>
-                                                </Border.InputBindings>
+                                                </Border.InputBindings>-->
                                                 <Border.Cursor>Hand</Border.Cursor>
                                             </Border>
                                             <StackPanel Grid.Column="1">
                                                 <TextBlock Margin="5,2,0,0" TextWrapping="Wrap">
                                                             <Run FontWeight="Bold" Text="{Binding User.Username}">
                                                                 <Run.Cursor>Hand</Run.Cursor>
-                                                                <Run.InputBindings>
+                                                                <!--<Run.InputBindings>
                                                                     <MouseBinding Command="{Binding DataContext.SearchTabCommand, ElementName=This}"
                                                                                   MouseAction="LeftClick" 
                                                                                   CommandParameter="{Binding User}"/>
-                                                                </Run.InputBindings>
+                                                                </Run.InputBindings>-->
                                                             </Run>
                                                             <Run Text="{Binding Comment.Comment_text}" />
                                                 </TextBlock>
@@ -267,7 +267,7 @@
                                             </StackPanel>
                                             <ToggleButton
                                                         Grid.Column="2"
-                                                        Command="{Binding DataContext.DisplayLikeCommentCommand, ElementName=This}"
+                                                        Command="{Binding DataContext.PostCommands.DisplayLikeCommentCommand, ElementName=This}"
                                                         CommandParameter="{Binding}"
                                                         Content="{materialDesign:PackIcon Kind=Heart,
                                                                                           Size=15}"
@@ -314,7 +314,7 @@
                                         materialDesign:HintAssist.Hint="Add a comment..."
                                         AcceptsReturn="True"
                                         SpellCheck.IsEnabled="True"
-                                        Text="{Binding Comment, Mode=TwoWay}"
+                                        Text="{Binding PostCommands.Comment, Mode=TwoWay}"
                                         TextWrapping="Wrap"
                                         VerticalScrollBarVisibility="Auto" />
                             <TextBlock

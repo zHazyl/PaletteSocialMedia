@@ -115,7 +115,7 @@ namespace SocialNetwork.DAO
 
         public ObservableCollection<Message> GetMessagesWithContact(int self_id, int user_id)
         {
-            string sql = $"select * from messages where (recieve_id = {user_id} and send_id = {self_id}) or (recieve_id = {self_id} and send_id = {user_id})";
+            string sql = $"select * from messages where (recieve_id = {user_id} and send_id = {self_id}) or (recieve_id = {self_id} and send_id = {user_id}) order by time";
             DataTable dataTable = connection.executeRetrieveQuery(sql);
 
             List<Message> messages = ConvertDataTableToList<Message>(dataTable);

@@ -80,6 +80,18 @@
                             </Button>
                         </materialDesign:DialogHost>
 
+                        <Button Grid.Column="0"
+                                Width="30"
+                                Padding="1,0,1,0"
+                                materialDesign:RippleAssist.IsCentered="True"
+                                Command="{Binding ReloadCommand}"
+                                Style="{StaticResource MaterialDesignToolButton}">
+                            <materialDesign:PackIcon
+                                            Width="30"
+                                            Height="30"
+                                            Kind="Sync" />
+                        </Button>
+
                     </StackPanel>
 
                     <!--Profile Line 2: No of Posts, Followers, Following-->

@@ -6,28 +6,28 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SocialNetwork.BUS.Commands
 {
-    public class SelfProfilePostCommand
+    public class SelfProfilePostCommand : BaseBUS
     {
         private User _user;
         private string _comment;
         private LikeCommand _displayLikeCommand;
         private CommentCommand _displayCommentCommand;
-        private LikeCommand _displayLikeCommentCommand;
+        private ICommand _displayLikeCommentCommand;
 
-        public SelfProfilePostCommand(User user, string comment)
+        public SelfProfilePostCommand(User user)
         {
             _user = user;
-            _comment = comment;
         }
 
         public User User { get => _user; }
-        public string Comment { get => _comment; set => _comment = value; }
+        public string Comment { get => _comment; set { _comment = value; OnPropertyChanged(); } }
         public LikeCommand DisplayLikeCommand { get { return _displayLikeCommand ?? (_displayLikeCommand = new LikeCommand(param => DisplayLike(param))); } }
         public CommentCommand DisplayCommentCommand { get { return _displayCommentCommand ?? (_displayCommentCommand = new CommentCommand(param => DisplayComment(param))); } }
-        public LikeCommand DisplayLikeCommentCommand { get { return _displayLikeCommentCommand ?? (_displayLikeCommentCommand = new LikeCommand(param => DisplayLikeComment(param))); } }
+        public ICommand DisplayLikeCommentCommand { get { return _displayLikeCommentCommand ?? (_displayLikeCommentCommand = new LikeCommand(param => DisplayLikeComment(param))); } }
 
         public void DisplayComment(object values)
         {

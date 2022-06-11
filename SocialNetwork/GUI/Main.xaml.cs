@@ -157,7 +157,7 @@ DependencyProperty.Register("Mess", typeof(MessageBUS), typeof(Main), new Framew
             {
                 var path = new Uri(op.FileName);
                 image.Source = new BitmapImage(path);
-                string destinationDirectory = @"C:\Users\tnh21\source\repos\SocialNetwork_ProjectWPF\SocialNetwork\assets\images\post\";
+                string destinationDirectory = @"C:\Users\trand\source\repos\PaletteSocialMedia\SocialNetwork\assets\images\post\";
                 url = System.IO.Path.Combine(destinationDirectory, System.IO.Path.GetFileName(path.ToString()));
                 File.Copy(path.OriginalString, url, true);
                 url = path.ToString();
