@@ -100,15 +100,22 @@
                                         Margin="30 20 20 0">
 
                         <!--Posts-->
-                        <TextBlock Text="0 posts"
-                                           Margin="0 0 20 0"/>
+                        <TextBlock Margin="0 0 20 0">
+                            <Run Text="{Binding User.Count_posts}"/>
+                            <Run Text="Posts"/>
+                        </TextBlock>
 
                         <!--Followers-->
-                        <TextBlock Text="0 followers"
-                                           Margin="0 0 20 0"/>
+                        <TextBlock Margin="0 0 20 0">
+                            <Run Text="{Binding User.Followers}"/>
+                            <Run Text="Followers"/>
+                        </TextBlock>
 
                         <!--Following-->
-                        <TextBlock Text="0 following"/>
+                        <TextBlock>
+                             <Run Text="{Binding User.Following}"/>
+                            <Run Text="Following"/>
+                        </TextBlock>
                     </StackPanel>
 
                     <!--Name And Bio-->

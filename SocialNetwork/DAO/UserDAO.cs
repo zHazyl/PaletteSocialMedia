@@ -98,6 +98,29 @@ namespace SocialNetwork.DAO
             return true;
         }
 
+        public int CountUserFollowers(int user_id)
+        {
+
+            string sql = $"SELECT COUNT(follower_id) AS isfollow FROM social_media.follows where followee_id={user_id};";
+            DataTable dataTable = connection.executeRetrieveQuery(sql);
+            return Int32.Parse(dataTable.Rows[0]["isfollow"].ToString());
+        }
+
+        public int CountUserFollowing(int user_id)
+        {
+
+            string sql = $"SELECT COUNT(followee_id) AS isfollow FROM social_media.follows where follower_id={user_id};";
+            DataTable dataTable = connection.executeRetrieveQuery(sql);
+            return Int32.Parse(dataTable.Rows[0]["isfollow"].ToString());
+        }
+
+        public int CountUserPosts(int user_id)
+        {
+            string sql = $"select count(*) as count from social_media.post where user_id={user_id}";
+            DataTable dataTable = connection.executeRetrieveQuery(sql);
+            return Int32.Parse(dataTable.Rows[0]["count"].ToString());
+        }
+
         public bool IsUsersContact(int user1, int user2)
         {
 

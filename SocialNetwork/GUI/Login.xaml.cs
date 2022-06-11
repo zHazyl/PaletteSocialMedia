@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 
 using SocialNetwork.BUS;
+using SocialNetwork.DAO;
 using SocialNetwork.DTO;
 
 namespace SocialNetwork.GUI
@@ -31,6 +32,10 @@ namespace SocialNetwork.GUI
             {
                 UserBUS userBUS = new UserBUS();
                 User user = userBUS.GetUserByUsername(txtBoxUsername.Text);
+                UserDAO userDAO = new UserDAO();
+                user.Followers = userDAO.CountUserFollowers(user.User_id);
+                user.Following = userDAO.CountUserFollowing(user.User_id);
+                user.Count_posts = userDAO.CountUserPosts(user.User_id);
 
                 // Chuyển hướng sang trang chủ
                 Main main = new Main(user);

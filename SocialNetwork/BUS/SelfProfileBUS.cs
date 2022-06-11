@@ -121,7 +121,10 @@ namespace SocialNetwork.BUS
                 _selfProfilePosts.Add(new SelfProfilePostBUS(_user, post));
             }
 
-            Debug.WriteLine(_viewPosts.Count);
+            UserDAO userDAO = new UserDAO();
+            _user.Following = userDAO.CountUserFollowing(_user.User_id);
+            _user.Followers = userDAO.CountUserFollowers(_user.User_id);
+            _user.Count_posts = userDAO.CountUserPosts(_user.User_id);
         }
     }
 }

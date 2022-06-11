@@ -49,6 +49,10 @@ namespace SocialNetwork.DTO
         private string _gender;
         private string _profile_photo_url;
         private string _bio;
+        private int _followers;
+        private int _following;
+        private int _count_posts;
+
         private DateTime _created_at;
         // prop
         public int User_id { get => _user_id; set => _user_id = value; }
@@ -87,6 +91,21 @@ namespace SocialNetwork.DTO
         {
             get => _bio;
             set { _bio = value; OnPropertyChanged(); }
+        }
+        public int Followers
+        {
+            get => _followers;
+            set { _followers = value; OnPropertyChanged(); }
+        }
+        public int Following
+        {
+            get => _following;
+            set { _following = value; OnPropertyChanged(); }
+        }
+        public int Count_posts
+        {
+            get => _count_posts;
+            set { _count_posts = value; OnPropertyChanged(); }
         }
         public DateTime Created_at { get; set; }
     }
